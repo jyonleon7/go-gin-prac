@@ -1,0 +1,20 @@
+version: 1
+packages:
+  # 「sqlc generate」コマンドで作成された、Goに対応したsql 等を格納するフォルダの指定
+  - path: "./db/sqlc"
+    # 生成される Go パッケージの名前を sqlc に伝える import "db"のような。
+    name: "db"
+    # どのデータベースエンジンを使用するか
+    engine: "postgresql"
+    # migration で定義されたテーブルをもとに、pathで指定されたフォルダに、struct などを作成する
+    schema: "./db/migration"
+    # メソッドを定義する元となるファイルを指定する（ここで定義したsql が --name で定義したものとして実行することができる）
+    queries: "./db/query/"
+    # 出力されるstruct に jsonの構造を付与するかどうか
+    emit_json_tags: true
+    # 準備済みステートメントで動作するコードを生成するかどうか
+    emit_prepared_queries: false
+    # 生成されたパッケージのクエリインターフェースを生成するかどうか
+    emit_interface: false
+    # true accounts テーブル ⇨ struct: accounts, false accounts テーブル ⇨ struct: account
+    emit_exact_table_names: false
