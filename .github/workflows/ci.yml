@@ -10,12 +10,31 @@ on:
     branches: [ "master" ]
 
 jobs:
-
-  build:
+  test:
     runs-on: ubuntu-latest
+
+    # ubuntu-latest の環境にDocker を用いて、postgres:12 のコンテナを立てる。
+    services:
+      postgres:
+        # Docker hub から postgres:12 のイメージを取得
+        image: postgres:12
+        env:
+          POSTGRES_USER: root
+          POSTGRES_PASSWORD: secret
+          POSTGRES_DB: simple_bank
+        # 立ち上がったかどうかを github actions 上でログ出力する
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
     - name: Checkout code into the Runner
       uses: actions/checkout@v3
+
+    - name: Run Migrate
+      run: make migrateup
 
     - name: Set up Go
       uses: actions/setup-go@v3
