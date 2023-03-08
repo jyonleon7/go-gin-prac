@@ -34,9 +34,11 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Install golang-migrate
+      # golang-migrate をインストールし、解凍するとカレントディレクトリにinstall されるため、/usr/bin/に移動して、migrate コマンドを叩けるようにする。
       run: |
-          curl -LJO https://github.com/golang-migrate/migrate/releases/download/v4.14.1/migrate.linux-amd64.tar.gz
-          tar xvzf migrate.linux-amd64.tar.gz
+          curl -LJO https://github.com/golang-migrate/migrate/releases/download/v4.14.1/migrate.linux-amd64.tar.gz | tar xvz
+          sudo mv migrate.linux-amd64 /usr/bin/
+          which migrate
 
     - name: Run Migrate
       run: make migrateup
