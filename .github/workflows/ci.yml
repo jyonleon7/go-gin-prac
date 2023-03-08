@@ -33,6 +33,9 @@ jobs:
     - name: Checkout code into the Runner
       uses: actions/checkout@v3
 
+    - name: Set Up golang-migrate
+      uses: curl -L https://github.com/golang-migrate/migrate/releases/download/$version/migrate.$platform-amd64.tar.gz | tar xvz
+
     - name: Run Migrate
       run: make migrateup
 
