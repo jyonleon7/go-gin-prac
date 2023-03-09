@@ -18,3 +18,5 @@ packages:
     emit_interface: false
     # true accounts テーブル ⇨ struct: accounts, false accounts テーブル ⇨ struct: account
     emit_exact_table_names: false
+    # 空のリストがある場合に、true だと[] を返し、false だとnullを返す
+    emit_empty_slices: true
