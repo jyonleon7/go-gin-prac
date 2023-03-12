@@ -6,7 +6,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/gin/simplebank/utils"
+	"github.com/gin/simplebank/util"
 	_ "github.com/lib/pq"
 )
 
@@ -14,7 +14,7 @@ var testqueries *Queries
 var testDB *sql.DB
 
 func TestMain(m *testing.M) {
-	config, err := utils.LoadConfig("../../")
+	config, err := util.LoadConfig("../../")
 	if err != nil {
 		log.Fatalf("can not read config: %s", err)
 	}
