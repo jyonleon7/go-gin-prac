@@ -6,12 +6,12 @@ import (
 
 	"github.com/gin/simplebank/api"
 	db "github.com/gin/simplebank/db/sqlc"
-	"github.com/gin/simplebank/utils"
+	"github.com/gin/simplebank/util"
 	_ "github.com/lib/pq"
 )
 
 func main() {
-	config, err := utils.LoadConfig(".")
+	config, err := util.LoadConfig(".")
 	conn, err := sql.Open(config.DBDriver, config.DBSource)
 	if err != nil {
 		log.Fatal("can not connect: ", err)
